@@ -91,6 +91,11 @@ class User implements UserInterface
     private $annonces;
 
     /**
+     * @ORM\ManyToMany(targetEntity=Role::class, mappedBy="users")
+     */
+    private $usersRoles;
+
+    /**
      * Permet d'initialiser le slug avant la persistence
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
@@ -105,6 +110,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->annonces = new ArrayCollection();
+        $this->usersRoles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -261,7 +267,11 @@ class User implements UserInterface
 
 
     public function getRoles(){
-        return ['ROLE_USER'];
+        $roles = $this->usersRoles->map(function ($role){
+            return $role->getTitle();
+        })->toArray();
+        $roles[]= 'ROLE_USER';
+        return $roles;
     }
 
     public function getPassword(){
@@ -287,5 +297,33 @@ class User implements UserInterface
      */
     public function getFullName(){
         return "{$this->firstName} {$this->lastName}";
+    }
+
+    /**
+     * @return Collection|Role[]
+     */
+    public function getUsersRoles(): Collection
+    {
+        return $this->usersRoles;
+    }
+
+    public function addUsersRole(Role $usersRole): self
+    {
+        if (!$this->usersRoles->contains($usersRole)) {
+            $this->usersRoles[] = $usersRole;
+            $usersRole->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUsersRole(Role $usersRole): self
+    {
+        if ($this->usersRoles->contains($usersRole)) {
+            $this->usersRoles->removeElement($usersRole);
+            $usersRole->removeUser($this);
+        }
+
+        return $this;
     }
 }

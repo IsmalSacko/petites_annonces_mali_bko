@@ -8,6 +8,8 @@ use App\Entity\User;
 use App\Form\AnnoncesType;
 use App\Repository\AnnoncesRepository;
 use App\Repository\UserRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -34,6 +36,7 @@ class AnnoncesController extends AbstractController
 
     /**
      * @Route("/new", name="annonces_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
      * @param Request $request
      * @return Response
      */
@@ -78,7 +81,7 @@ class AnnoncesController extends AbstractController
             $entityManager->flush();
 
             return $this->redirectToRoute('annonces_index', [
-                'id' =>$ads->getId()
+                'slug' =>$ads->getAuthor()
             ]);
         }
 
@@ -103,6 +106,8 @@ class AnnoncesController extends AbstractController
 
     /**
      * @Route("/{slug}/edit", name="annonces_edit", methods={"GET","POST"})
+     * @Security("is_granted('ROLE_USER') and user === annonce.getAuthor() ",
+      message="Cette annonce ne vous appartient,vous ne pouvez pas la modifier !")
      * @param Request $request
      * @param Annonces $annonce
      * @return Response

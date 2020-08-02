@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,8 +14,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
-     * @Route("/user")
-     */
+ *
+ * @Route("/user")
+ */
     class UserController extends AbstractController
     {
         private $passwordEncoder;
@@ -23,6 +26,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
     }
 
         /**
+         * @IsGranted("ROLE_USER")
          * @Route("/", name="user_index", methods={"GET"})
          * @param UserRepository $userRepository
          * @return Response
@@ -80,9 +84,11 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
     }
 
         /**
+         *
          * @Route("/{slug}/edit", name="user_edit", methods={"GET","DELETE","POST"})
+         * @Security("is_granted('ROLE_USER') or user === user.getSlug()",
+        message="Ce profil ne vous appartient pas,vous ne pouvez pas le modifier !")
          * @param Request $request
-         * @param User $user
          * @return Response
          */
     public function edit(Request $request, User $user): Response
@@ -108,7 +114,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
         }
 
         return $this->render('user/edit.html.twig', [
-            'user' => $this->getUser(),
+            'user' => $user,
             'form' => $form->createView(),
         ]);
     }

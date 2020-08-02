@@ -11,7 +11,10 @@
             <p class="h2">
                 <strong>{{ ads.nombreAd }} </strong> articles pour <strong>{{ ads.price }} FCFA</strong> chacun
             </p>
-            <p class="text-center"><a class="btn btn-success" href="{{ path('annonces_show', {'slug':ads.slug}) }}" role="button">Voir l'article</a></p>
+            {% if app.user and app.user == ads.author %}
+                <p class="text-center"><a class="btn btn-outline-primary" href="{{ path('annonces_edit', {'slug':ads.slug}) }}" >Modifier</a></p>
+
+            {% endif %}
         </div>
     </div>
     <div class="container">
@@ -51,47 +54,29 @@
 
                 <div class="col mt-5">
                     <div class="row mb-3 align-items-center">
-                        {% if user is same as(app.user) %}
                             {% set a = ads.author %}
                             <div class="col-4">
-                                <a href="{{ path('user_show', {'slug': a.slug }) }}">
                                     <img class="image_border" src="/usersimages/{{ a.picture }}" alt="Image du vendeur" class="float-left mr-3">
-                                </a>
-
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <a href="{{ path('user_show', {'slug': a.slug }) }}">
-                                        <h3>{{ a.fullName }}</h3>
-                                    </a>
+                                    <h3>{{ a.fullName }}</h3>
                                     <span class="badge badge-primary">{{ ads.nombreAd }} annonce(s)</span>
                                 </div>
                             </div>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur
-                                facilis nesciunt numquam odio praesentium quae qui, temporibus tenetur totam
-                                velit.
-                            </p>
-                            <a class="btn btn-primary" href="{{ path('user_show', {'slug': a.slug}) }}" >En savoir plus !</a>
-
-                        {% endif %}
-
+                            <p>{{ a.presentation }}</p>
                     </div>
                 </div>
 
-
-
         </div>
     </div>
-    {% if user is same as(app.user) %}
+    {% if app.user and app.user == ads.author %}
         <div class="row">
             <div class="col-4">
                 <a class="btn bg-info" href="{{ path('annonces_index') }}">Go back</a>
-
                 <a class="btn btn-primary" href="{{ path('annonces_edit', {'slug': ads.slug}) }}">edit</a>
+             {{ include('annonces/_delete_form.html.twig') }}
             </div>
         </div>
-        {{ include('annonces/_delete_form.html.twig') }}
-
     {% endif %}
 {% endblock %}

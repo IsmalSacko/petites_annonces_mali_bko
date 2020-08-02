@@ -38,7 +38,10 @@
                     <div class="card-body">
                         <h4 class="card-title">{{ ad.title }} </h4>
                         <p class="card-text">{{ ad.introduction }}</p>
-                        <a class="btn btn-secondary" href="{{ path('annonces_show', {'slug':ad.slug}) }}" role="button">En savoir plus</a>
+                        <a class="btn btn-primary" href="{{ path('annonces_show', {'slug':ad.slug}) }}" role="button">En savoir plus</a>
+                        {% if app.user and app.user == ad.author %}
+                            <a class="btn btn-secondary" href="{{ path('annonces_edit', {'slug': ad.slug}) }}">edit</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -46,8 +49,8 @@
     </div>
     <h2 class="text-info">Nos vendeurs stars</h2>
     <div class="row mt-3">
-        {% for ad in ads | slice (0, 6)%}
-            <div class="col">
+        {% for ad in ads | slice (0, 3)%}
+            <div class="col-sm-6">
                 <div class="card border-secondary mb-3">
                     <div class="card-body">
                         <h4 class="card-title">{{ ad.author.firstName }} {{ ad.author.lastName }}</h4>
@@ -55,12 +58,14 @@
                         <div class="card-text">
                             <img style="height: 60px; width: 15%; display: block" src="usersimages/{{ ad.author.picture }}" alt="Image du vendeur" class="float-left mr-3">
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, sunt!</p>
-                            <a class="btn btn-success float-right" href="{{ path('user_show', {'slug': ad.author}) }}" >En savoir plus !</a>
+                            <a class="btn btn-success float-right" href="{{ path('annonces_show', {'slug': ad.slug }) }}" >Voir !</a>
+                            {% if app.user and app.user == ad.author %}
+                                <a class="btn btn-primary float-right mr-1" href="{{ path('annonces_edit', {'slug': ad.slug}) }}">edit</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
-
         {% endfor %}
     </div>
 </div>
