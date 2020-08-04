@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Acheter l'annonce {{ ads.title }} !{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <h1 class="text-info text-center">Page d'achat</h1>
+    <div class="col mb-5">
+        <h3 class="alert alert-light ">Vous êtes sur le point acheter le bien de <strong>
+                {{ ads.author.fullName }}
+            </strong></h3>
+        {{ form_start(form) }}
+        {{ form_widget(form)}}
+        <button class="btn btn-primary">Acheter</button>
+        {{ form_end(form) }}
+    </div>
+<span class="alert alert-warning" >Le montant de votre achat est : <strong>{{ ads.price }}</strong> FCFA</span>
+</div>
+{% endblock %}

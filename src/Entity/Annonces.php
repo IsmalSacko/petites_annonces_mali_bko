@@ -77,10 +77,16 @@ class Annonces
      */
     private $author;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Achat::class, mappedBy="annonce")
+     */
+    private $achats;
+
 
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        $this->achats = new ArrayCollection();
     }
 
     /**
@@ -224,6 +230,37 @@ class Annonces
     public function setAuthor(?User $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Achat[]
+     */
+    public function getAchats(): Collection
+    {
+        return $this->achats;
+    }
+
+    public function addAchat(Achat $achat): self
+    {
+        if (!$this->achats->contains($achat)) {
+            $this->achats[] = $achat;
+            $achat->setAnnonce($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAchat(Achat $achat): self
+    {
+        if ($this->achats->contains($achat)) {
+            $this->achats->removeElement($achat);
+            // set the owning side to null (unless already changed)
+            if ($achat->getAnnonce() === $this) {
+                $achat->setAnnonce(null);
+            }
+        }
 
         return $this;
     }

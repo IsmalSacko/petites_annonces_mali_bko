@@ -96,6 +96,11 @@ class User implements UserInterface
     private $usersRoles;
 
     /**
+     * @ORM\OneToMany(targetEntity=Achat::class, mappedBy="acheteur")
+     */
+    private $achats;
+
+    /**
      * Permet d'initialiser le slug avant la persistence
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
@@ -111,6 +116,7 @@ class User implements UserInterface
     {
         $this->annonces = new ArrayCollection();
         $this->usersRoles = new ArrayCollection();
+        $this->achats = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -322,6 +328,37 @@ class User implements UserInterface
         if ($this->usersRoles->contains($usersRole)) {
             $this->usersRoles->removeElement($usersRole);
             $usersRole->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Achat[]
+     */
+    public function getAchats(): Collection
+    {
+        return $this->achats;
+    }
+
+    public function addAchat(Achat $achat): self
+    {
+        if (!$this->achats->contains($achat)) {
+            $this->achats[] = $achat;
+            $achat->setAcheteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAchat(Achat $achat): self
+    {
+        if ($this->achats->contains($achat)) {
+            $this->achats->removeElement($achat);
+            // set the owning side to null (unless already changed)
+            if ($achat->getAcheteur() === $this) {
+                $achat->setAcheteur(null);
+            }
         }
 
         return $this;

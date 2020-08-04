@@ -13,7 +13,8 @@
             </p>
             {% if app.user and app.user == ads.author %}
                 <p class="text-center"><a class="btn btn-outline-primary" href="{{ path('annonces_edit', {'slug':ads.slug}) }}" >Modifier</a></p>
-
+                {% else %}
+                    <p class="text-center"><a class="btn btn-outline-primary" href="{{ path('achat', {'slug':ads.slug}) }}" >Acheter !</a></p>
             {% endif %}
         </div>
     </div>

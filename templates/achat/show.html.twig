@@ -1,0 +1,63 @@
+{% extends "base.html.twig" %}
+{% block title %} Achat n°{{ achat.id}} {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-info text-center">Votre achat n°{{ achat.id }}  !</h1>
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-light">
+                    <h2>Details</h2>
+                    <dl class="row">
+                        <dt class="col-md-4">Numéro</dt>
+                        <dd class="col-md-8">{{ achat.id }}</dd>
+                        <dt class="col-md-4">Date de pubication</dt>
+                        <dd class="col-md-8">{{ achat.createdAt | date('d/m/y')}}</dd>
+                        <dt class="col-md-4">Date de panier</dt>
+                        <dd class="col-md-8">{{ achat.startdate | date('d/m/y')}}</dd>
+                        <dt class="col-md-4">Date d'expiation du panier</dt>
+                        <dd class="col-md-8">{{ achat.endDate | date('d/m/y') }}</dd>
+                        <dt class="col-md-4">Nombre d'articles</dt>
+                        <dd class="col-md-8">{{ achat.id | length }}s</dd>
+                        <dt class="col-md-4">Montant Total</dt>
+                        <dd class="col-md-8"><strong>{{ achat.amount }} FCFA</strong></dd>
+                    </dl>
+                    <hr>
+                    <h2 class="alert-heading">Votre hôte/client</h2>
+                    <div class="row mb-3">
+                        <div class="col-3">
+                            <img class="image_border" src="/usersimages/{{ achat.annonce.author.picture }}" alt="">
+                        </div>
+                        <div class="col-9">
+                            <h4>
+                                <a href="{{ path('user_show', {'slug':achat.annonce.author.slug }) }}">
+                                    {{ achat.annonce.author.fullName }}
+                                </a>
+                            </h4>
+                            <span class="badge badge-primary">{{ achat.annonce.author.annonces | length }} annonce(s).</span>
+                        </div>
+                    </div>
+                    {{ achat.annonce.author.presentation | raw }}
+                    <a class="btn btn-outline-primary"
+                            href="{{ path('user_show', {'slug':achat.annonce.author.slug }) }}">
+                        En savoir plus sur {{ achat.annonce.author.fullName }}
+                    </a>
+                </div>
+            </div>
+            <div class="col">
+                <div class="alert alert-light">
+                    <h2 class="alert-heading">Votre papier</h2>
+                    <h4 class="">
+                        <a href="{{ path('annonces_show', {'slug' : achat.annonce.slug}) }}">{{ achat.annonce.slug }}</a>
+                    </h4>
+                    <img class="img-fluid" src="/uploads/{{ achat.annonce.image }}" alt="{{ achat.annonce.title }}">
+                   <p>{{ achat.annonce.content |raw }}</p>
+                    <a href="{{ path('annonces_show', {'slug' : achat.annonce.slug}) }}" class="btn btn-outline-primary"> Plus d'infos</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+

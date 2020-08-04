@@ -79,7 +79,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
     public function show(User $user): Response
     {
         return $this->render('user/show.html.twig', [
-            'user' => $this->getUser(),
+            'user' => $user,
         ]);
     }
 
