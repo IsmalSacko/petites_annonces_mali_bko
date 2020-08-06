@@ -9,6 +9,8 @@
         <p class="lead">
             Nous mettons en relation les achéteurs et les vendeurs de toutes sortes
             d'objets sur l'ensemble de la ville de Bamako et ses environs.
+            Nos principales pulications concernent surtout la location de biens immobilières(
+            appartement, chambre, magasin)...
         </p>
         <hr class="my-4">
         <p>
@@ -16,6 +18,10 @@
             mains), alors vous êtes au bon endroit !
             Ou encore vous avez quelque à mettre en vente, il vous suffit de
             la publer sur notre site (prix, description, contact...) !
+        </p>
+        <p>
+            Ou encore, vous cherchez un bel appartement pour vous loger pour une courte ou longue dure,
+            alors là, vous allez adorés nos services !
         </p>
         <p class="lead">
             <p>Vous avez des doutes, cliquer ici pour</p>
@@ -29,7 +35,7 @@
             <div class="col-md-4">
                 <div class="card badge-light mb-3">
                     <div class="card-header text-center">
-                        {{ ad.nombreAd }} {{ ad.title }}, <strong>{{ ad.price }}&euro; chacun</strong><br>
+                        {{ ad.nombreAd }} {{ ad.title }}, <strong>{{ ad.price }} FCFA</strong><br>
                         <small>Pas encore noté</small>
                     </div>
                     <a href="uploads/{{ ad.image }}">
@@ -57,7 +63,7 @@
                         <hr>
                         <div class="card-text">
                             <img style="height: 60px; width: 15%; display: block" src="usersimages/{{ ad.author.picture }}" alt="Image du vendeur" class="float-left mr-3">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, sunt!</p>
+                            <p>{{ ad.author.presentation }}!</p>
                             <a class="btn btn-success float-right" href="{{ path('annonces_show', {'slug': ad.slug }) }}" >Voir !</a>
                             {% if app.user and app.user == ad.author %}
                                 <a class="btn btn-primary float-right mr-1" href="{{ path('annonces_edit', {'slug': ad.slug}) }}">edit</a>

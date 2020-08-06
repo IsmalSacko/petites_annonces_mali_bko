@@ -24,10 +24,10 @@
                                 <h4 class="card-title">{{ ad.title }} </h4>
                             </a>
                             <p class="card-text">{{ ad.introduction }}</p>
-                            <a class="btn btn-secondary" href="{{ path('annonces_show', {'slug': ad.slug}) }} ">show</a>
+                            <a class="btn btn-outline-primary" href="{{ path('annonces_show', {'slug': ad.slug}) }} ">show</a>
                             <a href="{{ path('achat',{'slug': ad.slug }) }}" class="btn btn-dark">Panier</a>
                             {% if app.user and app.user == ad.author %}
-                            <a class="btn btn-secondary" href="{{ path('annonces_edit', {'slug': ad.slug}) }}">edit</a>
+                            <a class="btn btn-outline-info" href="{{ path('annonces_edit', {'slug': ad.slug}) }}">edit</a>
                             {% endif %}
 
                         </div>

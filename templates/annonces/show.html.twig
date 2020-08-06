@@ -3,13 +3,13 @@
 {% block title %}Annonces{% endblock %}
 
 {% block body %}
-    <h1>Annonces</h1>
+    <h1 class="text-center">Annonces</h1>
     <div class="ad-title text-success bg-white" style="background-image: url('/uploads/{{ ads.image }}')">
         <div class="container">
             <h1>{{ ads.title }}</h1>
             <p>{{ ads.introduction }}</p>
             <p class="h2">
-                <strong>{{ ads.nombreAd }} </strong> articles pour <strong>{{ ads.price }} FCFA</strong> chacun
+                <strong>{{ ads.nombreAd }} </strong> article(s) pour <strong>{{ ads.price }} FCFA</strong>.
             </p>
             {% if app.user and app.user == ads.author %}
                 <p class="text-center"><a class="btn btn-outline-primary" href="{{ path('annonces_edit', {'slug':ads.slug}) }}" >Modifier</a></p>
