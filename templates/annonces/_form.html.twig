@@ -7,7 +7,7 @@
             {% if app.request.attributes.get('_route') == 'annonces_edit' %}
         <h3>Images</h3>
         {% for image in ads.images %}
-          <p class="image_border"> <img src="{{ asset('/uploads/' ~ image.url) }}" alt="images" width="150"></p>
+          <p > <img class="image_border" src="{{ asset('/uploads/' ~ image.url) }}" alt="images" width="150"></p>
         {% endfor %}
         {% else %}
             <p class="alert alert-warning"> Pas de photos !</p>

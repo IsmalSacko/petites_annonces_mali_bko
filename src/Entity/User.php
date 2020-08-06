@@ -111,6 +111,15 @@ class User implements UserInterface
             $this->slug = $slugify->slugify($this->getFirstName());
         }
     }
+    /**
+     * @ORM\PrePersist()
+     */
+    public function updateDate(){
+
+        if (empty($this->updated_at)){
+            $this->updated_at = new \DateTime();
+        }
+    }
 
     public function __construct()
     {

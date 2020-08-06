@@ -163,14 +163,9 @@ class AnnoncesController extends AbstractController
     public function delete(Request $request, Annonces $annonce): Response
     {
         if ($this->isCsrfTokenValid('delete'.$annonce->getId(), $request->request->get('_token'))) {
-            $image = new Image();
-            $nom = $image->getUrl();
-        $filesysteme = new Filesystem();
-           if (!$filesysteme->exists($nom)){
-               //unlink($this->getParameter('images_directory').'/'.$nom);y
-               $filesysteme->remove(['symlink', $this->getParameter('images_directory'). $nom]);
 
-           }
+               //unlink($this->getParameter('images_directory').'/'.$nom);y
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($annonce);
             $entityManager->flush();
@@ -179,6 +174,30 @@ class AnnoncesController extends AbstractController
         return $this->redirectToRoute('annonces_index');
     }
 
+//    /**
+//     * @Route("/supprime/image/{id}", name="annonces_delete_image", methods={"DELETE"})
+//     */
+//    public function deleteImage(Image $image, Request $request){
+//        $data = json_decode($request->getContent(), true);
+//
+//        // On vérifie si le token est valide
+//        if($this->isCsrfTokenValid('delete'.$image->getId(), $data['_token'])){
+//            // On récupère le nom de l'image
+//            $nom = $image->getUrl();
+//            // On supprime le fichier
+//            unlink($this->getParameter('images_directory').'/'.$nom);
+//
+//            // On supprime l'entrée de la base
+//            $em = $this->getDoctrine()->getManager();
+//            $em->remove($image);
+//            $em->flush();
+//
+//            // On répond en json
+//            return new JsonResponse(['success' => 1]);
+//        }else{
+//            return new JsonResponse(['error' => 'Token Invalide'], 400);
+//        }
+//    }
 
 
 }

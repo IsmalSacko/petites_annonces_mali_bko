@@ -2,52 +2,54 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Achat;
 use App\Entity\Annonces;
 use App\Entity\Role;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Faker;
 
 class AppFixtures extends Fixture
 {
     private $encoder;
 
+    /**
+     * AppFixtures constructor.
+     * @param $encoder
+     */
     public function __construct(UserPasswordEncoderInterface $encoder)
     {
         $this->encoder = $encoder;
     }
+
+
     public function load(ObjectManager $manager)
     {
-
         $adminRole = new Role();
-        $adminRole->setTitle('ROLE_ADMIN');
+        $adminRole->setTitle("ROLE_ADMIN");
         $manager->persist($adminRole);
-
-        $adminUser = new User();
-        $adminUser->setFirstName('SACKO')
-            ->setLastName('Ismaél')
-            ->setEmail('ismalsacko@yahoo.fr')
-            ->setHash($this->encoder->encodePassword($adminUser, 'sackosacko'))
-            ->setIntro('Administrateur du site')
-            ->setPresentation('Je suis l\'administrateur de ce site web')
-            ->setUpdatedAt(new \DateTime('now'))
-            ->setPicture('381339c6144e8df70a5549163c07de78.jpeg')
-            ->addUsersRole($adminRole);
-        $manager->persist($adminUser);
         $user = new User();
-        $user->setFirstName('NIAFO')
-            ->setLastName('Aicha')
-            ->setEmail('aicha@yahoo.fr')
-            ->setHash($this->encoder->encodePassword($adminUser, 'sackosacko'))
-            ->setIntro('simple utilisateur du site')
-            ->setPresentation('Je suis un simle administrateur de ce site web')
-            ->setUpdatedAt(new \DateTime('now'))
-            ->setPicture('381339c6144e8df70a5549163c07de78.jpeg');
+        $user->setFirstName("SACKO")
+            ->setLastName("Ismaél")
+            ->setEmail("ismalsacko@yahoo.fr")
+            ->setHash($this->encoder->encodePassword($user, "sackosacko"))
+            ->setIntro("Je suis administrateur de ce site")
+            ->setPresentation("Etudiant passionné du metier du web et ce site est le fruit de cette passion")
+            ->setPicture("Scan2-1.jpg")
+            ->addUsersRole($adminRole);
         $manager->persist($user);
+        $manager->flush();
 
+        $user_2 = new User();
+        $user_2->setFirstName("NIAFO")
+            ->setLastName("AICHA")
+            ->setEmail("aicha@yahoo.fr")
+            ->setHash($this->encoder->encodePassword($user_2, "sackosacko"))
+            ->setIntro("Je suis utilisatrice de ce site")
+            ->setPresentation("Etudiante et passionnée de la medecine moderne et profite de ce site pour proposer mes services à mes clients")
+            ->setPicture("0935ba65f2604f61fb4f50b6700e6830.jpeg");
+
+        $manager->persist($user_2);
         $manager->flush();
     }
 }
