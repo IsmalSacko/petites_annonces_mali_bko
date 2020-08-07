@@ -56,7 +56,7 @@
     <h2 class="text-info">Nos vendeurs stars</h2>
     <div class="row mt-3">
         {% for ad in ads | slice (0, 6)%}
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="card border-secondary mb-3">
                     <div class="card-body">
                         <h4 class="card-title">{{ ad.author.firstName }} {{ ad.author.lastName }}</h4>
