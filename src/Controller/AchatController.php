@@ -34,7 +34,7 @@ class AchatController extends AbstractController
            $em = $this->getDoctrine()->getManager();
            $em->persist($achat);
            $em->flush();
-           return $this->redirectToRoute('achat', [
+           return $this->redirectToRoute('achat_sohow', [
                'id' => $achat->getId()
            ]);
         }
