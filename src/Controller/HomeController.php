@@ -15,7 +15,7 @@ class HomeController extends AbstractController
      */
     public function index(AnnoncesRepository $annoncesRepository)
     {
-        $content = 'Binvenue sur "PetitsAnnonces"';
+        $content = 'Binvenue sur "Petites_Annonces"';
         return $this->render('home/index.html.twig', [
             'content' =>$content,
             'ads' => $annoncesRepository->findAll(),
