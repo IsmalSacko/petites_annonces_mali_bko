@@ -35,7 +35,8 @@ class AchatController extends AbstractController
            $em->persist($achat);
            $em->flush();
            return $this->redirectToRoute('achat_sohow', [
-               'id' => $achat->getId()
+               'id' => $achat->getId(),
+               'panier' => true
            ]);
         }
         return $this->render('achat/index.html.twig', [
