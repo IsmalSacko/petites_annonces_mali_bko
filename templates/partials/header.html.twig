@@ -6,13 +6,13 @@
     <div class="collapse navbar-collapse" id="navbarColor02">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item ">
-                <a class="nav-link" href="{{ path ('home') }}">Home</a>
+                <a class="nav-link" href="{{ path ('home') }}">Accueil</a>
             </li><li class="nav-item ">
                 <a class="nav-link" href="{{ path ('annonces_index')}}">Annonces</a>
             </li>
-            {% if app.user %}
+            {% if is_granted("ROLE_ADMIN") %}
             <li class="nav-item">
-                <a class="nav-link" href="# ">Admin</a>
+                <a class="nav-link" href="{{ path('user_index')}} ">Admin</a>
             </li>
         </ul>
         <ul class="navbar-nav left">
@@ -31,11 +31,15 @@
                 </div>
             </li>
             {% else %}
+
             <li class="nav-item">
-                <a class="nav-link" href="{{ path('user_new') }}">Sing Up</a>
+                <a class="nav-link" href="{{ path('user_new')
+                }}">S'inscrire
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ path('account_login') }}">Login</a>
+                <a class="nav-link" href="{{ path('account_login')
+                }}">Connexion </a>
             </li>
         </ul>
         {% endif %}
