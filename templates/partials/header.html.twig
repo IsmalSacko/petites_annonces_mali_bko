@@ -10,14 +10,15 @@
             </li><li class="nav-item ">
                 <a class="nav-link" href="{{ path ('annonces_index')}}">Annonces</a>
             </li>
+
             {% if is_granted("ROLE_ADMIN") %}
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('user_index')}} ">Admin</a>
             </li>
-         {% elseif  app.user %}
+            {% endif %}
         </ul>
-
         <ul class="navbar-nav left">
+        {% if  app.user %}
             <li class="nav-item dropdown">
                 <a href="#" id="accountDropdownLink"  class="nav-link dropdown-toggle" data-toggle="dropdown">
                     <img class="avatar avatar-mini" src="/usersimages/{{ app.user.picture }}" alt="Avatar de
