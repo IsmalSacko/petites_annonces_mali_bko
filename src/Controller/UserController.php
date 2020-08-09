@@ -26,7 +26,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
     }
 
         /**
-         * @IsGranted("ROLE_USER")
+         * @IsGranted("ROLE_ADMIN")
          * @Route("/", name="user_index", methods={"GET"})
          * @param UserRepository $userRepository
          * @return Response

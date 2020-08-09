@@ -22,6 +22,7 @@ class CommentFormType extends AbstractType
                     'max' => 5,
                     'step' =>1,
 
+
                 ]
             ])
             ->add('content')
