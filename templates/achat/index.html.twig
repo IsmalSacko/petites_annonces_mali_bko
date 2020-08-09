@@ -15,6 +15,9 @@
         <button class="btn btn-primary">Finaliser</button>
         {{ form_end(form) }}
     </div>
-<span class="alert alert-warning" >Le montant de votre achat est : <strong>{{ ads.price }}</strong> FCFA</span>
+    <span class="alert alert-warning" >Le montant de votre achat est : <strong>{{ ads.price }}</strong> FCFA</span>
+    <span class="alert alert-warning"  id="spn">Le montant de votre achat est :
+        <strong>{{ ads.price }}</strong> FCFA</span>
 </div>
 {% endblock %}
+

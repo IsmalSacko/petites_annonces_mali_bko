@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block title %} HomePage {% endblock %}
-
 {% block body %}
 <div class="container text-dark py-3">
     <div class="jumbotron">
@@ -33,11 +32,17 @@
     <div class="row mt-3">
         {% for ad in ads | slice (0, 6) %}
 
-            <div class="col-md-4" id="ads">
+            <div class="col-md-4">
                 <div class="card badge-light mb-3">
                     <div class="card-header text-center">
                         {{ ad.nombreAd }} {{ ad.title }}, <strong>{{ ad.price }} FCFA</strong><br>
-                        <small>Pas encore noté</small>
+                        {% if cmt.note | length > 0 %}
+                        {% for  commnt in cmt.note  %}
+                            <small>It y a {{ cmt.note | length }} notes
+                                laissées par les utilisateur</small>
+
+                        {% endfor %}
+                        {% endif %}
                     </div>
                     <a href="uploads/{{ ad.image }}">
                     <img src="uploads/{{ ad.image }}" alt="Image du téléphone" style="width:100% ; height:250px ;display:block">

@@ -26,11 +26,15 @@
                         <dt class="col-md-4">Date de pubication</dt>
                         <dd class="col-md-8">{{ achat.createdAt | date('d/m/y')}}</dd>
                         <dt class="col-md-4">Date de panier</dt>
-                        <dd class="col-md-8">{{ achat.startdate | date('d/m/y')}}</dd>
+                        <dd class="col-md-8" id="star_date">{{ achat
+                            .startdate | date
+                                ('d/m/y')}}</dd>
                         <dt class="col-md-4">Date d'expiation du panier</dt>
-                        <dd class="col-md-8">{{ achat.endDate | date('d/m/y') }}</dd>
+                        <dd class="col-md-8" id="end_ate">{{ achat.endDate |
+                            date
+                                ('d/m/y') }}</dd>
                         <dt class="col-md-4">Nombre d'articles</dt>
-                        <dd class="col-md-8">{{ achat.id | length }}s</dd>
+                        <dd class="col-md-8">{{ achat.id | length }}</dd>
                         <dt class="col-md-4">Montant Total</dt>
                         <dd class="col-md-8"><strong>{{ achat.amount }} FCFA</strong></dd>
                     </dl>
@@ -41,12 +45,13 @@
                             <img class="image_border" src="/usersimages/{{ achat.annonce.author.picture }}" alt="">
                         </div>
                         <div class="col-9">
-                            <h4 class="ml-2">
+                            <h4 class="col-sm ml-4">
                                 <a href="{{ path('user_show', {'slug':achat.annonce.author.slug }) }}">
                                     {{ achat.annonce.author.fullName }}
                                 </a>
                             </h4>
-                            <span class="badge badge-primary">{{ achat.annonce.author.annonces | length }} annonce(s).</span>
+                            <span class="badge badge-primary ">{{ achat
+                                .annonce.author.annonces | length }} annonce(s).</span>
                         </div>
                     </div>
                     {{ achat.annonce.author.presentation | raw }}
@@ -66,10 +71,62 @@
                    <p>{{ achat.annonce.content |raw }}</p>
                     <a href="{{ path('annonces_show', {'slug' : achat.annonce.slug}) }}" class="btn btn-outline-primary"> Plus d'infos</a>
                 </div>
+            <div class="alert alert-light">
+            <h2 class="alert-heading">Votre avis comte !</h2>
+                {% set cmt = achat.annonce.commentFromUser(app.user) %}
+                {% if cmt is not null %}
+                    <blockquote>
+                        {{ achat.annonce.author.fullName }} a dit :
+                        <br>
+                        {{ cmt.content }}
+                    </blockquote>
+                    {% if achat.annonce.comments | length > 0 %}
+                        {% for comment in achat.annonce.comments  %}
+                            <Strong>Note : </Strong>{{ comment.note }}
+                            {% for i in 1..5 %}
+                                {% if i < comment.note %}
+                                    <i style="padding: unset; background: wheat" class="fa
+                                    fa-star"></i>
+                                    {% else %}
+                                        <i style="padding: unset;color: #d1ecf1" class="fa
+                                        fa-star"></i>
+                                {% endif %}
+                            {% endfor %}
+                            <br>
+                            <div class="alert-heading mt-3">
+                                <span class="alert alert-info mt-3">Notes sur 5</span>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    {% else %}
+                {{ form_start(form, {'attr': {'novalidate':'novalidate'}}) }}
+                {{ form_widget(form) }}
+                <button class="btn btn-outline-primary">Noter</button>
+                {{ form_end(form) }}
+                {% endif %}
+            </div>
             </div>
         </div>
     </div>
 
 {% endblock %}
+{% block javascripts %}
+    <script>
+        function calculDate() {
+            const endDate = ($('#end_ate').val());
+            const startDate = ($('#star_date').val())
+            if (startDate && endDate && startDate < endDate){
+                const  date_Time = 24 * 60 * 60 * 1000;
+                const interval = endDate.getTime() - startDate.getTime();
+                const days = interval / date_Time;
+                const amount = days * {{ achat.annonce.price }}
+
+                    console.log(interval);
+            }
+        }
+    </script>
+{% endblock %}
+
 
 

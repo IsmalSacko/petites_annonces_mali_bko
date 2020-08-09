@@ -53,6 +53,48 @@
                     </a>
                 </div>
                 {# fin corrousel#}
+                <hr class="alert-info">
+                {% if ads.comments | length > 0 %}
+                    <h2 class="mb-3">Commentaires de nos utilisateurs :</h2>
+                    {% for comment in ads.comments  %}
+                        <div class="bg light rounded mb-3 py-3 px-3">
+                           <strong>{{ comment.author.fullName }} a dit :</strong>
+                            <blockquote>
+                                {{ comment.content }}
+                            </blockquote>
+                            <strong>Note donnée par {{ comment.author
+                                .fullName }} :</strong> {{ comment.note }}
+                            {% if ads.comments | length > 0 %}
+                                {% for comment in ads.comments  %}
+                                    <Strong>Note : </Strong>{{ comment.note }}
+                                    {% for i in 1..5 %}
+                                        {% if i < comment.note %}
+                                            <i style="padding: unset; background: wheat" class="fa
+                                    fa-star"></i>
+                                        {% else %}
+                                            <i style="padding: unset;color: #d1ecf1" class="fa
+                                        fa-star"></i>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <br>
+                                    <div class="alert-heading mt-3">
+                                        <span class="alert alert-info mt-3">Notes sur 5</span>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+
+                    {% endfor %}
+                {% else %}
+                    <h3 class="alert alert-info">
+                        Cette annonce n'a pas encore reçu de commentaires...
+                    </h3>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa far-star"></i>
+
+                {% endif %}
             </div>
 
                 <div class="col mt-5">
@@ -74,7 +116,7 @@
         </div>
     </div>
     {% if app.user and app.user == ads.author %}
-        <div class="row">
+        <div class="row ml-5">
             <div class="col-4">
                 <a class="btn bg-info" href="{{ path('annonces_index') }}">Go back</a>
                 <a class="btn btn-primary" href="{{ path('annonces_edit', {'slug': ads.slug}) }}">edit</a>

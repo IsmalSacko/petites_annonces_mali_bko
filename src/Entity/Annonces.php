@@ -6,6 +6,7 @@ use App\Repository\AnnoncesRepository;
 use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use phpDocumentor\Reflection\Types\String_;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
@@ -82,11 +83,17 @@ class Annonces
      */
     private $achats;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="ad", orphanRemoval=true)
+     */
+    private $comments;
+
 
     public function __construct()
     {
         $this->images = new ArrayCollection();
         $this->achats = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     /**
@@ -99,6 +106,18 @@ class Annonces
             $slugify = new Slugify();
         $this->slug = $slugify->slugify($this->title);
         }
+    }
+
+    /**
+     * Permet de récupérer le commentaire d'un utilisateur
+     * @param User $user
+     * @return Comment|null
+     */
+    public function getCommentFromUser(User $user){
+        foreach ($this->comments as $comment){
+            if ($this->getAuthor()=== $this->author)return $comment;
+        }
+        return null;
     }
 
     public function getId(): ?int
@@ -265,5 +284,39 @@ class Annonces
         return $this;
     }
 
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
 
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setAd($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getAd() === $this) {
+                $comment->setAd(null);
+            }
+        }
+
+        return $this;
+    }
+
+public function __toString()
+{
+    return (string)$this->getSlug();
+}
 }
