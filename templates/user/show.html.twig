@@ -38,7 +38,9 @@
                         <div class="card-body">
                             <h4 class="card-title">{{ ads.title }} </h4>
                             <p class="card-text">{{ ads.introduction }}</p>
-                            <a class="btn btn-secondary" href="{{ path('annonces_show', {'slug':ads.slug}) }}" role="button">Voir</a>
+                            <a class="btn btn-secondary" href="{{ path('annonces_show', {'slug':ads.slug}) }}" role="button">
+                                <i class="fas fa eye"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -57,7 +59,9 @@
         {#href="{{ path('user_index') }}">back to list</a>#}
 
         <p>
-            <a class="btn btn-primary" href="{{ path('user_edit', {'slug': user.slug}) }}">Editer</a>
+            <a class="btn btn-primary" href="{{ path('user_edit', {'slug': user.slug}) }}">
+                <i class="fas fa-edit"></i>
+            </a>
             <a class="btn btn-primary" href="{{ path('profole_password')}}">Update Password</a>
 
         {{ include('user/_delete_form.html.twig') }}
