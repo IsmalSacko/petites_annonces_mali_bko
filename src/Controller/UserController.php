@@ -27,8 +27,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
     }
 
         /**
-         * @IsGranted("ROLE_ADMIN")
          * @Route("/{page<\d+>?1}", name="user_index", methods={"GET"})
+         * @Security("is_granted('ROLE_ADMIN')")
          * @param UserRepository $userRepository
          * @param $page
          * @param Pagination $pagination

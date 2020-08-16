@@ -7,8 +7,7 @@ use App\Form\CommentFormType;
 use App\Repository\CommentRepository;
 use App\Service\Pagination;
 use Doctrine\ORM\EntityManagerInterface;
-use phpDocumentor\Reflection\DocBlock\Tags\Throws;
-use phpDocumentor\Reflection\Types\This;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,6 +17,7 @@ class AdminCommentaireController extends AbstractController
 {
     /**
      * @Route("/admin/commentaire/{page<\d+>?1}", name="admin_commentaire_index")
+     * @Security("is_granted('ROLE_ADMIN')")
      * @param CommentRepository $repo
      * @param $page
      * @param Pagination $pagination
@@ -34,6 +34,7 @@ class AdminCommentaireController extends AbstractController
     /**
      * Permat de modifier un commentaire par laiisé par utilisateur
      * @Route("/admin/commentaire/{id}/edit", name="admin_comment_edit")
+     * @Security("is_granted('ROLE_ADMIN')")
      * @param Comment $comment
      * @param Request $request
      * @param EntityManagerInterface $manager
@@ -59,6 +60,7 @@ class AdminCommentaireController extends AbstractController
     /**
      * Permet de supprimer un commentaire laissé par un utilisateur
      * @Route("/admin/commentaire/{id}/delete", name="admin_comment_delete")
+     * @Security("is_granted('ROLE_ADMIN')")
      * @param Comment $comment
      * @param EntityManagerInterface $manager
      * @return Response

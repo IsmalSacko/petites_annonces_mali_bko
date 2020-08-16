@@ -35,7 +35,7 @@ class AppFixtures extends Fixture
             ->setHash($this->encoder->encodePassword($user, "sackosacko"))
             ->setIntro("Je suis administrateur de ce site")
             ->setPresentation("Etudiant passionné du metier du web et ce site est le fruit de cette passion")
-            ->setPicture("Scan2-1.jpg")
+            ->setPicture("Scan.jpg")
             ->addUsersRole($adminRole);
         $manager->persist($user);
         $manager->flush();
@@ -47,7 +47,7 @@ class AppFixtures extends Fixture
             ->setHash($this->encoder->encodePassword($user_2, "sackosacko"))
             ->setIntro("Je suis utilisatrice de ce site")
             ->setPresentation("Etudiante et passionnée de la medecine moderne et profite de ce site pour proposer mes services à mes clients")
-            ->setPicture("0935ba65f2604f61fb4f50b6700e6830.jpeg");
+            ->setPicture("935ba65f2604f61fb4f50b6700e6830.jpeg");
 
         $manager->persist($user_2);
         $manager->flush();

@@ -9,6 +9,7 @@ use App\Form\PanierType;
 use App\Repository\AchatRepository;
 use App\Service\Pagination;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,6 +19,7 @@ class AdminAchatsController extends AbstractController
 {
     /**
      * @Route("/admin/achats/{page<\d+>?1}", name="admin_achat_index")
+     * @Security("is_granted('ROLE_ADMIN')")
      * @param AchatRepository $repo
      * @param $page
      * @param Pagination $pagination
@@ -25,16 +27,17 @@ class AdminAchatsController extends AbstractController
      */
     public function index(AchatRepository $repo,$page, Pagination $pagination)
     {
-        $pagination->setEntityClass(Achat::class)
-                    ->setPage($page);
+        $pagination->setEntityClass(Achat::class)->setPage($page);
         return $this->render('admin/achat/index.html.twig', [
            'pagination' =>$pagination,
+            'achat' => $repo->findAll()
         ]);
     }
 
     /**
      * Permet de modifier ou éditer un panier
      * @Route("/admin/achats/{id}/edit", name="admin_achat_edit")
+     * @Security("is_granted('ROLE_ADMIN')")
      * @param Achat $achat
      * @param Request $request
      * @param EntityManagerInterface $manager
@@ -60,6 +63,7 @@ class AdminAchatsController extends AbstractController
     /**
      * Permet supprimer un panier
      * @Route("/admin/achats/{id}/delete", name="admin_achat_delete")
+     * @Security("is_granted('ROLE_ADMIN')")
      * @param Achat $achat
      * @param EntityManagerInterface $manager
      * @return Response

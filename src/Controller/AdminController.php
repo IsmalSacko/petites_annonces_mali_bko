@@ -37,6 +37,7 @@ class AdminController extends AbstractController
     /**
      * Permet de modifier une annonce par son slug
      * @Route("/admin/annoncce/{id}/edit", name="admin_ads_edit")
+     * @Security("is_granted('ROLE_ADMIN')")
      * @param Request $request
      * @param Annonces $ad
      * @return Response
@@ -61,6 +62,7 @@ class AdminController extends AbstractController
     /**
      * Permet de supprimer une annocne
      * @Route("/admin/annonce/{id}/delete", name="admin_ads_delete")
+     * @Security("is_granted('ROLE_ADMIN')")
      * @param Annonces $ad
      * @param EntityManagerInterface $manager
      * @return Response
