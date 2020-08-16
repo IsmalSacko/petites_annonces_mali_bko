@@ -16,7 +16,7 @@
                 <th>Actions</th>
             </tr>
             <tbody>
-            {% for  cmt in comments  %}
+            {% for  cmt in pagination  %}
                 <tr>
                     <td>{{ cmt.id }}</td>
                     <td>{{ cmt.createdAt | date('d/m/Y H:i') }}</td>
@@ -46,5 +46,6 @@
             {% endfor %}
             </tbody>
         </table>
+        {% include 'admin/partials/pagination.html.twig' with {'route' : 'admin_commentaire_index'} %}
     </div>
 {% endblock %}

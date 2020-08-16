@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Annonces;
 use App\Form\AnnoncesType;
 use App\Repository\AnnoncesRepository;
+use App\Service\Pagination;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,20 +19,18 @@ class AdminController extends AbstractController
      * @Route("/admin/{page<\d+>?1}", name="admin_ad")
      * @Security("is_granted('ROLE_ADMIN')")
      * @param AnnoncesRepository $annoncesRepository
+     * @param $page
+     * @param Pagination $pagination
      * @return Response
      */
     // requirements={"page":"\d+"}=> c'est pour la pagination
-    public function adminAd(AnnoncesRepository $annoncesRepository, $page)
+    public function adminAd(AnnoncesRepository $annoncesRepository, $page, Pagination $pagination)
     {
-        $limite = 10;
-        $start = $page * $limite - $limite;
-        $total = count($annoncesRepository->findAll());
+        $pagination->setEntityClass(Annonces::class)
+                    ->getPage($page);
 
-        $npages = ceil($total / $limite);
         return $this->render('admin/ad/index.html.twig', [
-            'ads' => $annoncesRepository->findBy([],[],$limite,$start),
-            'pages' =>$npages,
-            'page' => $page,
+            'pagination' =>$pagination,
         ]);
     }
 

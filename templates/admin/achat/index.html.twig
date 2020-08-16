@@ -16,7 +16,7 @@
             </tr>
             </thead>
             <tbody>
-            {% for achat in achats %}
+            {% for achat in pagination %}
                 <tr>
                     <td>{{ achat.id }}</td>
                     <td>{{ achat.createdAt | date('d/m/Y H:i') }}</td>
@@ -43,5 +43,6 @@
 
             </tbody>
         </table>
+        {% include 'admin/partials/pagination.html.twig' with {'route' : 'admin_achat_index'} %}
     </div>
 {% endblock %}

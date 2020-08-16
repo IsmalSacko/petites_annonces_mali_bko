@@ -7,6 +7,7 @@ use App\Entity\Comment;
 use App\Form\AchatType;
 use App\Form\PanierType;
 use App\Repository\AchatRepository;
+use App\Service\Pagination;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,14 +17,18 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminAchatsController extends AbstractController
 {
     /**
-     * @Route("/admin/achats", name="admin_achat_index")
-     * @param AchatRepository $achatRepository
+     * @Route("/admin/achats/{page<\d+>?1}", name="admin_achat_index")
+     * @param AchatRepository $repo
+     * @param $page
+     * @param Pagination $pagination
      * @return Response
      */
-    public function index(AchatRepository $achatRepository)
+    public function index(AchatRepository $repo,$page, Pagination $pagination)
     {
+        $pagination->setEntityClass(Achat::class)
+                    ->setPage($page);
         return $this->render('admin/achat/index.html.twig', [
-            'achats' => $achatRepository->findAll(),
+           'pagination' =>$pagination,
         ]);
     }
 

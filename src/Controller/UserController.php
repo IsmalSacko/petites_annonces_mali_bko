@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use App\Service\Pagination;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,14 +28,18 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
         /**
          * @IsGranted("ROLE_ADMIN")
-         * @Route("/", name="user_index", methods={"GET"})
+         * @Route("/{page<\d+>?1}", name="user_index", methods={"GET"})
          * @param UserRepository $userRepository
+         * @param $page
+         * @param Pagination $pagination
          * @return Response
          */
-    public function index(UserRepository $userRepository): Response
+    public function index(UserRepository $userRepository, $page, Pagination $pagination): Response
     {
+        $pagination->setEntityClass(User::class)->setPage($page);
         return $this->render('user/index.html.twig', [
             'users' => $userRepository->findAll(),
+            'pagination' => $pagination
         ]);
     }
 

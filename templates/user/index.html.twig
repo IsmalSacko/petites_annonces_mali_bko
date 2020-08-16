@@ -55,7 +55,8 @@
             {% endfor %}
             </tbody>
         </table>
+        {% include 'admin/partials/pagination.html.twig' with {'route' : 'user_index'} %}
 
-        <a class="btn btn-primary" href="{{ path('user_new') }}">Create new</a>
+        {#        <a class="btn btn-primary" href="{{ path('user_new') }}">Create new</a>#}
     </div>
 {% endblock %}
