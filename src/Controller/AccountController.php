@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Annonces;
 use App\Entity\PasswordUpdate;
 use App\Form\AccountType;
+use App\Form\AnnoncesType;
 use App\Form\PasswordUpdateType;
 use Doctrine\ORM\EntityManagerInterface;
+use phpDocumentor\Reflection\Types\This;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
@@ -103,6 +106,5 @@ class AccountController extends AbstractController
            'form' => $form->createView()
        ]);
     }
-
 
 }

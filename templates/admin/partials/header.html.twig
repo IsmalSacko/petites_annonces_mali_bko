@@ -24,9 +24,14 @@
                     Users
                 </a>
             </li><li class="nav-item">
-                <a class="nav-link" href="{{ path('user_index') }} ">
+                <a class="nav-link" href="{{ path('admin_commentaire_index')}} ">
                     <i class="fas fa-comments"></i>
                     Commentaires
+                </a>
+            </li></li><li class="nav-item">
+                <a class="nav-link" href="{{ path('admin_achat_index')}} ">
+                    <i class="fas fa-cart-arrow-down"></i>
+                    Paniers
                 </a>
             </li>
         </ul>
@@ -46,7 +51,7 @@
                 </a>
 
                     <div class="dropdown-divider"></div>
-                    <a href="{{ path('account_logout') }}" class="dropdown-item">Déconnexion</a>
+                    <a href="{{ path('admin_account_logout') }}" class="dropdown-item">Déconnexion</a>
                 </div>
             </li>
         </ul>

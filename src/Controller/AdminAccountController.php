@@ -24,4 +24,12 @@ class AdminAccountController extends AbstractController
 
         ]);
     }
+
+    /**
+     * Permet la déconnexion
+     * @Route("/admin/logout", name="admin_account_logout")
+     */
+    public function logout(){
+
+    }
 }

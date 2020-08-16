@@ -309,7 +309,7 @@ class User implements UserInterface
 
     public function __toString()
     {
-        return (string)$this->getId();
+        return (string)$this->getFullName();
     }
 
     /**
@@ -409,4 +409,5 @@ class User implements UserInterface
 
         return $this;
     }
+
 }

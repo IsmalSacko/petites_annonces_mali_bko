@@ -1,0 +1,47 @@
+{% extends 'admin/ad/base.html.twig' %}
+
+{% block title %}Administration des paniers!{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <h1 class="alert alert-info text-center mt-2">Gestion des paniers</h1>
+        <table class="table table-hover table-dark">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>Client</th>
+                <th>Annonce</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for achat in achats %}
+                <tr>
+                    <td>{{ achat.id }}</td>
+                    <td>{{ achat.createdAt | date('d/m/Y H:i') }}</td>
+                    <td>
+                        <img src="/usersimages/{{ achat.acheteur.picture }}"
+                             alt="Image de {{ achat.acheteur.fullName }}"
+                             class="image_border avatar-mini">
+                        {{ achat.acheteur.fullName }}
+                    </td>
+                    <td>{{ achat.annonce }}</td>
+                    <td>
+                        <a href="{{ path('admin_achat_edit', {'id' : achat.id }) }}" class="btn btn-primary">
+                            <i class="fas fa-pen"></i>
+                        </a>
+                        <a href="{{ path('admin_achat_delete', {'id' : achat.id }) }}" class="btn btn-danger"
+                        onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce panier ?');">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <p class="alert alert-info">Pas d'achats ou de paniers' pour l'instant, revenez plutard !</p>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
