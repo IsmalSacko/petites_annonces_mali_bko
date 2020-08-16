@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminController extends AbstractController
 {
     /**
-     * @Route("/admin/{page<\d+>?1}", name="admin_ad")
+     * @Route("/admin/ad/{page<\d+>?1}", name="admin_ad")
      * @Security("is_granted('ROLE_ADMIN')")
      * @param AnnoncesRepository $annoncesRepository
      * @param $page
