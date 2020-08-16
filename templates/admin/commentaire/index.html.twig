@@ -16,7 +16,7 @@
                 <th>Actions</th>
             </tr>
             <tbody>
-            {% for  cmt in pagination  %}
+            {% for  cmt in comments  %}
                 <tr>
                     <td>{{ cmt.id }}</td>
                     <td>{{ cmt.createdAt | date('d/m/Y H:i') }}</td>

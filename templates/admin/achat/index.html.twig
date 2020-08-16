@@ -16,7 +16,7 @@
             </tr>
             </thead>
             <tbody>
-            {% for achat in pagination %}
+            {% for achat in achat %}
                 <tr>
                     <td>{{ achat.id }}</td>
                     <td>{{ achat.createdAt | date('d/m/Y H:i') }}</td>
