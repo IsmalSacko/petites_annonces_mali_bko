@@ -15,15 +15,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminController extends AbstractController
 {
     /**
-     * @Route("/admin", name="admin_ad")
+     * @Route("/admin/{page<\d+>?1}", name="admin_ad")
      * @Security("is_granted('ROLE_ADMIN')")
      * @param AnnoncesRepository $annoncesRepository
      * @return Response
      */
-    public function adminAd(AnnoncesRepository $annoncesRepository)
+    // requirements={"page":"\d+"}=> c'est pour la pagination
+    public function adminAd(AnnoncesRepository $annoncesRepository, $page)
     {
+        $limite = 10;
+        $start = $page * $limite - $limite;
+        $total = count($annoncesRepository->findAll());
+
+        $npages = ceil($total / $limite);
         return $this->render('admin/ad/index.html.twig', [
-            'ads' => $annoncesRepository->findAll(),
+            'ads' => $annoncesRepository->findBy([],[],$limite,$start),
+            'pages' =>$npages,
+            'page' => $page,
         ]);
     }
 
