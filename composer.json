@@ -37,10 +37,10 @@
         "symfony/web-link": "*",
         "symfony/yaml": "*",
         "twig/twig": "^3.0",
-        "vich/uploader-bundle": "^1.15"
+        "vich/uploader-bundle": "^1.15",
+        "doctrine/doctrine-fixtures-bundle": "^3.3"
     },
     "require-dev": {
-        "doctrine/doctrine-fixtures-bundle": "^3.3",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
         "symfony/profiler-pack": "*",
@@ -82,7 +82,8 @@
             "@auto-scripts"
         ],
         "compile": [
-            "php bin/console doctrine:migrations:migrate"
+            "php bin/console doctrine:migrations:migrate",
+            "php bin/console doctrine:fixtures:load --no-interaction --env=PROD"
         ]
     },
     "conflict": {
