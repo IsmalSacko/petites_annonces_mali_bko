@@ -31,6 +31,7 @@ class AdminController extends AbstractController
 
         return $this->render('admin/ad/index.html.twig', [
             'pagination' =>$pagination,
+            'ad' => $annoncesRepository->findAll(),
         ]);
     }
 
