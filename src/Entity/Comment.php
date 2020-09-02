@@ -120,6 +120,11 @@ class Comment
 
         return $this;
     }
+
+    /**
+     * Permet de transformer en string
+     * @return string
+     */
     public function __toString()
     {
         // TODO: Implement __toString() method.

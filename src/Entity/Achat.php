@@ -54,6 +54,7 @@ class Achat
     private $amount;
 
     /**
+     * Cette méthode permet d'enregister avant la pesristence dan la base de données.
      * @ORM\PrePersist()
      */
     public function prePersist(){
