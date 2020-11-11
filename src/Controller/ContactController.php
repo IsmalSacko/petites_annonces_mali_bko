@@ -44,7 +44,7 @@ class ContactController extends AbstractController
             $entityManager->flush();
            $email = new TemplatedEmail();
            $email->from($contact->getEmail())
-                 ->to('ismalsacko@yahoo.fr')
+                 ->to('ismalsacko@gmail.com')
                  ->subject($contact->getSujet().'_'.$contact->getNom())
                  ->text($contact->getMessage())
                  ->htmlTemplate('contact/show.html.twig')
