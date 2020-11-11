@@ -27,7 +27,7 @@
         "version": "2.13.3"
     },
     "doctrine/data-fixtures": {
-        "version": "1.4.3"
+        "version": "1.4.4"
     },
     "doctrine/dbal": {
         "version": "2.10.2"
@@ -53,7 +53,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "3.0",
-            "ref": "fc52d86631a6dfd9fdf3381d0b7e3df2069e51b3"
+            "ref": "e5b542d4ef47d8a003c91beb35650c76907f7e53"
         },
         "files": [
             "./src/DataFixtures/AppFixtures.php"
@@ -107,6 +107,15 @@
     },
     "jms/metadata": {
         "version": "2.3.0"
+    },
+    "laminas/laminas-code": {
+        "version": "3.4.1"
+    },
+    "laminas/laminas-eventmanager": {
+        "version": "3.3.0"
+    },
+    "laminas/laminas-zendframework-bridge": {
+        "version": "1.1.1"
     },
     "monolog/monolog": {
         "version": "1.25.4"
@@ -553,6 +562,9 @@
         "files": [
             "./config/packages/vich_uploader.yaml"
         ]
+    },
+    "webimpress/safe-writer": {
+        "version": "2.1.0"
     },
     "webmozart/assert": {
         "version": "1.9.1"
